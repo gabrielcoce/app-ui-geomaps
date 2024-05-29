@@ -23,6 +23,7 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
+              "mapbox-gl",
               "dayjs",
               "dayjs/locale/es",
               "dayjs/plugin/localizedFormat",

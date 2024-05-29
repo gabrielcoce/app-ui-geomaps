@@ -47,10 +47,10 @@ export class AuthService {
     localStorage.removeItem(ROLE_KEY);
     localStorage.removeItem(EXP_KEY);
   }
-  private isTokenExpire() {
-    const expires_in = localStorage.getItem(EXP_KEY);
-    return expires_in
-      ? dayjs(Date.now()).isSameOrAfter(parseInt(expires_in))
-      : false;
-  }
+  // private isTokenExpire() {
+  //   const expires_in = localStorage.getItem(EXP_KEY);
+  //   return expires_in
+  //     ? dayjs(Date.now()).isSameOrAfter(parseInt(expires_in))
+  //     : false;
+  // }
 }
