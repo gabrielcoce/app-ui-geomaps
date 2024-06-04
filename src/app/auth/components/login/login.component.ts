@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   private _fb = inject(FormBuilder);
   private _authSvc = inject(AuthService);
+  private _spinnerSvc = inject(NgxSpinnerService);
 
   ngOnInit(): void {
     this.form = this._fb.group({
@@ -36,11 +39,40 @@ export class LoginComponent implements OnInit {
   }
 
   validate() {
+    if (this.form.invalid) return;
     const user = this.username.value;
     const password = this.password.value;
+    //console.log(user + password);
+    this._spinnerSvc.show();
+    this._authSvc.login(user, password).subscribe({
+      error: () => {
+        this._spinnerSvc.hide();
+        this.showMessage('info', 'Credenciales Invalidas');
+        this.form.reset();
+      },
+      complete: () => {
+        this._spinnerSvc.hide();
+      },
+    });
+  }
 
-    console.log(user + password);
-
-    this._authSvc.login(user, password);
+  private async showMessage(icon: SweetAlertIcon, text: string) {
+    const Toast = Swal.mixin({
+      //toast: true,
+      //position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      backdrop: true,
+      allowOutsideClick: false,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
+    await Toast.fire({
+      icon,
+      text: text ? text.toUpperCase() : text,
+    });
   }
 }

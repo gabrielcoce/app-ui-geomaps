@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MapService, PlacesService } from '../../services';
-import { Feature } from '../../interfaces/places.interface';
+import { Feature, IPlaceType } from '../../interfaces/places.interface';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,12 +20,18 @@ export class SearchResultsComponent {
   }
 
   get places() {
-    return this._placeSvc.places;
+    return this._placeSvc.place;
   }
 
   flyTo(place: Feature) {
     this.selectedId = place.id;
     const [lng, lat] = place.center;
     this._mapSvc.flyTo([lng, lat]);
+  }
+
+  flyToPlace(place: IPlaceType) {
+    this.selectedId = place.nombre;
+    const { longitude, latitude } = place;
+    this._mapSvc.flyTo([longitude, latitude]);
   }
 }

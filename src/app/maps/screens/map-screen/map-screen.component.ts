@@ -6,6 +6,7 @@ import { MapViewComponent } from '../../components/map-view/map-view.component';
 import { BtnMyLocationComponent } from '../../components/btn-my-location/btn-my-location.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 
+
 @Component({
   selector: 'app-map-screen',
   standalone: true,

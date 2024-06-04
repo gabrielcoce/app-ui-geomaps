@@ -33,7 +33,7 @@ export class MapViewComponent implements AfterViewInit {
       zoom: 14, // starting zoom
     });
 
-    const popup = new Popup().setHTML(`<h6>Aqui estoy ubicado!</h6>`);
+    const popup = new Popup().setHTML(`<h3>Aqui estoy ubicado!</h3>`);
 
     new Marker({ color: 'red' })
       .setLngLat(this.userLocation)
